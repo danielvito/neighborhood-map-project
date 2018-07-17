@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Neighborhood MapPproject</title>
+    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/4.1/assets/css/docs.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/project.css">
+</head>
+
+<body>
+    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+        <div class="navbar-nav-scroll">
+            <ul class="navbar-nav bd-navbar-nav flex-row">
+                <li class="nav-item">
+                    <a class="nav-link " href="/" >Neighborhood Map Project</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div class="row flex-xl-nowrap">
+            <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+                <form class="bd-search d-flex align-items-center">
+                    <input type="search" class="form-control" id="search-input" placeholder="Search..." data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" >
+                </form>
+
+                <nav class="collapse bd-links" id="bd-docs-nav" data-bind="foreach: computedPlaceList">
+                    <div class="bd-toc-item" data-bind="click: $root.showDetails">
+                        <a class="bd-toc-link" href="#" data-bind="text: title"></a>
+                    </div>
+                </nav>
+            </div>
+
+            <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-5 bd-content" role="main">
+                <div id="map"></div>
+            </main>
+        </div>
+    </div>
+
+    <script type='text/javascript' src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js'></script>
+    <script type='text/javascript' src="js/model.js"></script>
+    <script type='text/javascript' src="js/maps.js"></script>
+    <script type='text/javascript' src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDmQPKPAp0OW30VzEhn9Zm2gpFAi8tXtOk&callback=initMap" async defer></script>
+    <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
+    <script type='text/javascript' src="js/project.js"></script>
+</body>
+
+</html>
