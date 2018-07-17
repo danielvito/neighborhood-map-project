@@ -108,11 +108,14 @@ function populateInfoWindow(marker, infowindow) {
                 var id = data.response.groups[0].items[0].venue.id;
                 var tipsUrl = 'https://api.foursquare.com/v2/venues/' + id + '/tips?client_id=B4ORRQPXOTBBTMBZKQWPBRPAQU2X0N2F0J1VWB1QDXQNBIJB&client_secret=PHS5UGTSRKYZBSODLPYT2LHI1JDGYBKBPQCJISSURKSHWGUT&v=20180323&limit=1';
                 $.getJSON(tipsUrl).done(function (data) {
-                        var text = data.response.tips.items[0].text;
+                    var text = data.response.tips.items[0].text;
+                    var linkText = '<img src="img/foursquare.png" class="fqIcon">';
+                    if (data.response.tips.items[0].photo.prefix) {
                         var img = data.response.tips.items[0].photo.prefix + data.response.tips.items[0].photo.suffix;
                         var link = data.response.tips.items[0].canonicalUrl;
-                        var icon = '<a href="' + link + '" target="_blank"><img src="img/foursquare.png" class="fqIcon"></a>';
-                        $('#foursquare').html('<p>' + text + '</p><p>' + icon + '</p>');
+                        linkText = '<a href="' + link + '" target="_blank">' + linkText + '</a>';
+                    }
+                    $('#foursquare').html('<p>' + text + '</p><p>' + linkText + '</p>');
                 })
                 .fail(function () {
                     $('#foursquare').html('<p>Error to retrive foursquare tips.</p>');
