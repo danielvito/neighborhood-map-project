@@ -1,11 +1,21 @@
+'use strict';
+
+var CONSTANTS = {
+    "MAP_CENTER_LAT" : -23.6098600,
+    "MAP_CENTER_LNG" : -46.6843567
+}
+
 var map;
 // Create a new blank array for all the listing markers.
 var markers = [];
 var largeInfowindow = null;
 
+/**
+ * @description Generate the initial map with the custom markers.
+ */
 function initMap() {
      map = new google.maps.Map(document.getElementById('map'), {
-        center: { lat: -23.6098600, lng: -46.6843567 },
+        center: { lat: CONSTANTS.MAP_CENTER_LAT, lng: CONSTANTS.MAP_CENTER_LNG },
         zoom: 11,
         mapTypeControl: false
     });
@@ -55,9 +65,14 @@ function initMap() {
     // Extend the boundaries of the map for each marker
     map.fitBounds(bounds);
 }
-// This function populates the infowindow when the marker is clicked. We'll only allow
-// one infowindow which will open at the marker that is clicked, and populate based
-// on that markers position.
+
+/**
+ * @description This function populates the infowindow when the marker is clicked. We'll only allow
+ *              one infowindow which will open at the marker that is clicked, and populate based
+ *              on that markers position.
+ * @param {google.maps.Marker}     marker     - Map marker
+ * @param {google.maps.InfoWindow} infowindow - Map info window
+ */
 function populateInfoWindow(marker, infowindow) {
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
@@ -110,7 +125,7 @@ function populateInfoWindow(marker, infowindow) {
                 $.getJSON(tipsUrl).done(function (data) {
                     var text = data.response.tips.items[0].text;
                     var linkText = '<img src="img/foursquare.png" class="fqIcon">';
-                    if (data.response.tips.items[0].photo.prefix) {
+                    if (data.response.tips.items[0].photo && data.response.tips.items[0].photo.prefix && data.response.tips.items[0].photo.suffix) {
                         var img = data.response.tips.items[0].photo.prefix + data.response.tips.items[0].photo.suffix;
                         var link = data.response.tips.items[0].canonicalUrl;
                         linkText = '<a href="' + link + '" target="_blank">' + linkText + '</a>';
@@ -130,9 +145,13 @@ function populateInfoWindow(marker, infowindow) {
     }
 }
 
-// This function takes in a COLOR, and then creates a new marker
-// icon of that color. The icon will be 21 px wide by 34 high, have an origin
-// of 0, 0 and be anchored at 10, 34).
+/**
+ * @description This function takes in a COLOR, and then creates a new marker
+ *              icon of that color. The icon will be 21 px wide by 34 high,
+ *              have an origin of 0, 0 and be anchored at 10, 34).
+ * @param {string} markerColor - Hex color
+ * @returns {google.maps.MarkerImage} Marker image
+ */
 function makeMarkerIcon(markerColor) {
     var markerImage = new google.maps.MarkerImage(
         'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' + markerColor +

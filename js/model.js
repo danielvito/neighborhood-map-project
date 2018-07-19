@@ -1,3 +1,9 @@
+'use strict';
+
+/**
+ * @description View model of the application with all locations.
+ * @constructor
+ */
 function LocationViewModel() {
     var self = this;
     self.query = ko.observable('');
@@ -27,11 +33,10 @@ function LocationViewModel() {
         return ko.utils.arrayFilter(self.placeList(), function(item) {
             var show = item.title.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
             if (item.marker) {
-                if (show) {
-                    if ( ! item.marker.getMap())
-                        item.marker.setMap(map);
-                } else
-                    item.marker.setMap(null);
+                if ( ! item.marker.getMap()) {
+                    item.marker.setMap(map);
+                }
+                item.marker.setVisible(show);
             }
             return show;
         });
